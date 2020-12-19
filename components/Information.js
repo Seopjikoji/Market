@@ -7,6 +7,7 @@ import {
   TouchableNativeFeedback,
   Image,
   Dimensions,
+  TouchableHighlight,
 } from 'react-native';
 
 const Info = [
@@ -35,12 +36,27 @@ function renderItems(item) {
   );
 }
 
+const socialName = [
+  require(`../assets/facebook.png`),
+  require(`../assets/kakao.png`),
+  require(`../assets/google.png`),
+  require(`../assets/naver.png`),
+];
+
 function Information() {
   return (
     <>
       <View style={styles.social}>
-        {/* 여기에 소셜 로그인 나열 */}
-        {/* 여기에 소셜 로그인 나열 */}
+        <View style={styles.socialContainer}>
+          {socialName.map((element, index) => (
+            <TouchableHighlight
+              onPress={() => {}}
+              key={index.toString()}
+              style={styles.socialContainer}>
+              <Image style={styles.socialImage} source={element} />
+            </TouchableHighlight>
+          ))}
+        </View>
       </View>
       <FlatList
         data={Info}
@@ -76,10 +92,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   social: {
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 20,
+  },
+  socialImage: {
+    width: Dimensions.get('window').width * 0.5,
+    height: (Dimensions.get('window').width * 0.5 * 91) / 493,
+  },
+  socialContainer: {
+    marginVertical: 5,
   },
 });
 

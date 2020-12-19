@@ -6,54 +6,44 @@ import {
   Button,
   DrawerLayoutAndroid,
   Dimensions,
+  Animated,
+  Image,
+  FlatList,
+  ScrollView,
+  AppRegistry,
 } from 'react-native';
+import { Swipeable } from 'react-native-gesture-handler';
+import Swiper from 'react-native-swiper';
 
-function Temp() {
-  const drawer = useRef(null);
-  const [drawerPosition, setDrawerPosition] = useState('left');
-  const changeDrawerPosition = () => {
-    if (drawerPosition === 'left') {
-      setDrawerPosition('right');
-    } else {
-      setDrawerPosition('left');
-    }
+const { width, height } = Dimensions.get('window');
+
+const Parent = () => {
+  const parentFunction = (text) => {
+    console.log(text);
   };
 
-  const navigationView = () => {
-    const { container, navigationContainer } = style;
-    return (
-      <View style={[container, navigationContainer]}>
-        <Text>I'm in the Drawer!</Text>
-        <Button
-          title="Close drawer"
-          onPress={() => drawer.current.closeDrawer()}
-        />
-      </View>
-    );
-  };
+  return <Child parentFunction={parentFunction}></Child>;
+};
 
-  const style = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: 16,
-    },
-    navigationContainer: {
-      backgroundColor: '#ecf0f1',
-    },
-  });
+const Child = (props) => {
+  const childText = 'childText';
+
+  const childFunction = () => {
+    props.parentFunction(childText);
+  };
 
   return (
-    <DrawerLayoutAndroid
-      ref={drawer}
-      drawerWidth={100}
-      drawerPosition={drawerPosition}
-      renderNavigationView={navigationView}>
-      <View style={styles.container}>
-        <Button title="drawer" onPress={() => drawer.current.openDrawer()} />
-      </View>
-    </DrawerLayoutAndroid>
+    <View>
+      <Button onPress={childFunction} title="Data" />
+    </View>
+  );
+};
+
+function Temp() {
+  return (
+    <>
+      <Parent />
+    </>
   );
 }
 
@@ -62,6 +52,15 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
     height: 40,
   },
+  image: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+  },
+  pictures: {
+    width: width,
+    flexDirection: 'row',
+    height: height,
+  },
 });
 
-export default Temp;
+export default React.memo(Temp);

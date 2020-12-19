@@ -4,10 +4,10 @@ import {
   Text,
   Dimensions,
   DrawerLayoutAndroid,
-  SafeAreaView,
   StyleSheet,
 } from 'react-native';
 import Category, { CategoryDrawer } from './Category';
+import Header from './Header';
 
 function DrawerLayout({ Component }) {
   const drawer = useRef(null);
@@ -29,9 +29,7 @@ function DrawerLayout({ Component }) {
         </>
       )}
       keyboardDismissMode={'on-drag'}>
-      <SafeAreaView>
-        {Component ? <Component openDrawer={openDrawer} /> : <></>}
-      </SafeAreaView>
+      {Component ? <Component openDrawer={openDrawer} /> : <></>}
     </DrawerLayoutAndroid>
   );
 }

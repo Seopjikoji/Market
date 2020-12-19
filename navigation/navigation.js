@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -11,7 +11,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-
+// LogBox.ignoreWarnings(['Warning: ...']);
 function FavoriteScreenStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -35,7 +35,7 @@ function MainScreenStack() {
       <Stack.Screen
         name="ProductInfo"
         component={ProductInfo}
-        options={{ headerStyle: { height: 20 } }}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
@@ -106,10 +106,12 @@ export function BottomTab() {
   );
 }
 
-export function Navigator() {
+export function Navigate() {
   return (
     <NavigationContainer>
       <BottomTab />
     </NavigationContainer>
   );
 }
+
+export const Navigator = memo(Navigate);

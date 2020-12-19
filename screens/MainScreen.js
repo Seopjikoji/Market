@@ -21,6 +21,7 @@ const MainScreens = ({ openDrawer }) => {
             storeName={item.storeName}
             discount={item.discount}
             uri={item.uri}
+            len={true}
             quantity={item.quantity}
             price={item.price}
             explain={item.explain}
@@ -51,4 +52,4 @@ const MainScreen = () => {
   );
 };
 
-export default MainScreen;
+export default React.memo(MainScreen);

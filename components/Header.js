@@ -5,25 +5,10 @@ import {
   TextInput,
   TouchableNativeFeedback,
   Keyboard,
-  Dimensions,
   Text,
-  Pressable,
 } from 'react-native';
 import IconIo from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/Feather';
-
-const WIDTH = Dimensions.get('window').width;
-
-function HeaderIcon({ name }) {
-  const { icon } = styles;
-  return (
-    <TouchableNativeFeedback onPress={() => {}}>
-      <View style={icon}>
-        <IconIo name={name} size={20} color="black" />
-      </View>
-    </TouchableNativeFeedback>
-  );
-}
 
 export function HomeHeader() {
   const [keyword, setKeyword] = useState('');
@@ -76,14 +61,24 @@ function Header({ Component, openDrawer, title }) {
   return (
     <>
       <View style={styles.container}>
-        <Pressable onPress={openDrawer}>
-          <HeaderIcon name="menu-outline" />
-        </Pressable>
+        <TouchableNativeFeedback onPress={openDrawer}>
+          <View style={styles.icon}>
+            <IconIo name={'menu-outline'} size={20} color="black" />
+          </View>
+        </TouchableNativeFeedback>
         {title ? <Text>{title}</Text> : <></>}
         {Component ? <Component /> : <></>}
         <View style={{ flexDirection: 'row' }}>
-          <Icon name="bell" size={20} color="black" />
-          <HeaderIcon name="cart-outline" />
+          <TouchableNativeFeedback onPress={() => console.log('bell')}>
+            <View style={styles.icon}>
+              <Icon name="bell" size={20} color="black" />
+            </View>
+          </TouchableNativeFeedback>
+          <TouchableNativeFeedback onPress={() => {}}>
+            <View style={styles.icon}>
+              <IconIo name={'cart-outline'} size={20} color="black" />
+            </View>
+          </TouchableNativeFeedback>
         </View>
       </View>
     </>

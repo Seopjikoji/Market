@@ -13,20 +13,32 @@ import { priceComma } from '../util/price';
 const WIDTH = Dimensions.get('window').width;
 
 function Product(info) {
-  const { uri, discount, price, storeName, explain, quantity } = info;
+  const { uri, discount, price, storeName, explain, quantity, len } = info;
   const navigation = useNavigation();
 
   return (
     <TouchableNativeFeedback
       onPress={() => navigation.navigate('ProductInfo', { info })}>
-      <View style={[styles.container, { flex: 1 }]}>
-        <Image
-          source={{
-            uri,
-          }}
-          style={styles.image}
-          resizeMode={'contain'}
-        />
+      <View style={[styles.container, ...[len ? { flex: 1 } : {}]]}>
+        {uri ? (
+          <Image
+            source={{
+              uri,
+            }}
+            style={styles.image}
+            resizeMode={'contain'}
+          />
+        ) : (
+          <View
+            style={{
+              backgroundColor: 'gray',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: 100,
+            }}>
+            <Text>No Data</Text>
+          </View>
+        )}
         <View style={styles.priceInfo}>
           <Text style={styles.discount}>{discount}</Text>
           <Text style={styles.price}>{priceComma(price)}</Text>

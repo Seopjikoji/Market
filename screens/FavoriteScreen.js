@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, Dimensions } from 'react-native';
 import { TouchableNativeFeedback } from 'react-native-gesture-handler';
 import DrawerLayout from '../components/DrawerLayout';
@@ -30,30 +30,47 @@ function FavoriteListHeader() {
 }
 
 function FavoriteScreens({ openDrawer }) {
+  const [refresh, setRefresh] = useState(false);
+
   return (
     <>
       <Header title={'찜'} openDrawer={openDrawer} />
       <FavoriteListHeader />
       <View style={styles.container}>
-        <FlatList
-          data={favoritesItem}
-          renderItem={({ item }) => {
-            console.log(item);
-            return (
-              <Product
-                storeName={item.storeName}
-                discount={item.discount}
-                uri={item.uri}
-                quantity={item.quantity}
-                price={item.price}
-                explain={item.explain}
-              />
-            );
-          }}
-          numColumns={2}
-          keyExtractor={(item, index) => index.toString()}
-          showsVerticalScrollIndicator={false}
-        />
+        {favoritesItem.length !== 0 ? (
+          <FlatList
+            data={favoritesItem}
+            renderItem={({ item }) => {
+              return (
+                <Product
+                  storeName={item.storeName}
+                  discount={item.discount}
+                  uri={item.uri}
+                  quantity={item.quantity}
+                  price={item.price}
+                  explain={item.explain}
+                  len={true}
+                />
+              );
+            }}
+            numColumns={2}
+            keyExtractor={(item, index) => index.toString()}
+            showsVerticalScrollIndicator={false}
+            onRefresh={() => setRefresh((prev) => !prev)}
+            refreshing={refresh}
+            onr
+          />
+        ) : (
+          <Product
+            price={0}
+            explain={'찜한 상품이 없습니다.'}
+            quantity={'0'}
+            uri={''}
+            len={false}
+            discount={'0'}
+            storeName={'No Data'}
+          />
+        )}
       </View>
     </>
   );
@@ -110,4 +127,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FavoriteScreen;
+export default React.memo(FavoriteScreen);

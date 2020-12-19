@@ -12,34 +12,54 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { categories, womans } from '../dummy/dummy';
 
 export const CategoryDrawer = ({ male }) => {
+  const draw = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: 'skyblue',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 10,
+    },
+    buttonContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginHorizontal: 5,
+      marginVertical: 10,
+      width: 70,
+      height: 70,
+    },
+  });
+
   return (
     <>
-      <View>
+      <View style={draw.container}>
         {male ? (
           <FlatList
             data={categories}
             renderItem={({ item }) => (
-              <TouchableWithoutFeedback key={Object.keys(item)}>
-                <View>
-                  {/* <Icon name={Object.keys(item)} size={20} color={'black'} /> */}
+              <TouchableNativeFeedback key={Object.keys(item)}>
+                <View style={draw.buttonContainer}>
+                  <Icon name={'heart-outline'} size={20} color={'black'} />
                   <Text>{Object.values(item)}</Text>
                 </View>
-              </TouchableWithoutFeedback>
+              </TouchableNativeFeedback>
             )}
             keyExtractor={(item, index) => index.toString()}
+            numColumns={3}
           />
         ) : (
           <FlatList
             data={categories.concat(womans)}
             renderItem={({ item }) => (
-              <TouchableWithoutFeedback key={Object.keys(item)}>
-                <View>
-                  {/* <Icon name={Object.keys(item)} size={20} color={'black'} /> */}
+              <TouchableNativeFeedback key={Object.keys(item)}>
+                <View style={draw.buttonContainer}>
+                  <Icon name={'heart-outline'} size={20} color={'black'} />
                   <Text>{Object.values(item)}</Text>
                 </View>
-              </TouchableWithoutFeedback>
+              </TouchableNativeFeedback>
             )}
             keyExtractor={(item, index) => index.toString()}
+            numColumns={3}
           />
         )}
       </View>
@@ -70,7 +90,7 @@ function Category({ Component }) {
           <View
             style={[
               styles.choiceSex,
-              { backgroundColor: male ? '#339af0' : 'gray' },
+              { backgroundColor: male ? '#339af0' : '#fff' },
             ]}>
             <Text>남자</Text>
           </View>
@@ -79,7 +99,7 @@ function Category({ Component }) {
           <View
             style={[
               styles.choiceSex,
-              { backgroundColor: male ? 'gray' : '#fcc2d7' },
+              { backgroundColor: male ? '#fff' : '#fcc2d7' },
             ]}>
             <Text>여자</Text>
           </View>
@@ -143,7 +163,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 5,
     width: 80,
-    height: 50,
+    height: 80,
     marginHorizontal: 5,
     justifyContent: 'center',
     alignItems: 'center',
