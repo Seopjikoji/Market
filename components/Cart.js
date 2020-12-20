@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-function Cart() {
+function Cart({ navigation }) {
   return (
     <View>
       <Text>hello</Text>

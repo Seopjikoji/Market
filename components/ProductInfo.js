@@ -15,8 +15,9 @@ import { priceComma } from '../util/price';
 import Swiper from 'react-native-swiper';
 import Header from './Header';
 import Popup, { CouponPopup, PurchasePopup } from './Popup';
+import DrawerLayout from './DrawerLayout';
 
-function ProductInfo({ route }) {
+function ProductInfo1({ route, openDrawer }) {
   const [coupon, setCoupon] = useState(false);
   const [buy, setBuy] = useState(false);
   const navigation = useNavigation();
@@ -27,9 +28,11 @@ function ProductInfo({ route }) {
 
   useEffect(() => {
     navigation.setOptions({ tabBarVisible: false });
+    console.log(navigation);
   }, [navigation]);
 
   const { info } = route.params;
+  // const params = navigation.
   const { uri, discount, price, storeName, explain, quantity } = info;
   const title = '(1+1할인) 오버니삭스';
 
@@ -37,7 +40,7 @@ function ProductInfo({ route }) {
     <>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
-          <Header />
+          <Header openDrawer={openDrawer} />
           {/* 헤더가 사진 위로 겹쳐서 보여야함 */}
           <Swiper
             showsButtons
@@ -96,6 +99,14 @@ function ProductInfo({ route }) {
     </>
   );
 }
+
+const ProductInfo = ({ route }) => {
+  return (
+    <>
+      <DrawerLayout Component={() => <ProductInfo1 route={route} />} />
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   image: {

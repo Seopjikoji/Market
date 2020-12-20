@@ -1,34 +1,67 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   Dimensions,
   TouchableNativeFeedback,
+  TouchableHighlight,
+  Image,
 } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { kakaoRequest, googleRequest } from '../reducer/user';
 
 function Login() {
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const googleLogin = useCallback(() => dispatch(googleRequest()));
+  const kakaoLogin = useCallback(() => dispatch(kakaoRequest()));
+  console.log(user);
+
   return (
-    <View style={styles.container}>
-      <View>
-        <Text>회원이라면 누구나 무료배송!</Text>
-        <Text>별도의 회원가입 없이 소셜 로그인으로 혜택!</Text>
-      </View>
-      <View style={styles.login}>
-        <TouchableNativeFeedback onPress={() => {}}>
-          <View style={styles.button}>
-            <Text style={styles.text}>로그인</Text>
+    <>
+      {user.account === null ? (
+        <>
+          <View style={styles.container}>
+            <View>
+              <Text>회원이라면 누구나 무료배송!</Text>
+              <Text>별도의 회원가입 없이 소셜 로그인으로 혜택!</Text>
+            </View>
           </View>
-        </TouchableNativeFeedback>
-      </View>
-    </View>
+          <View style={styles.social}>
+            <View style={styles.socialContainer}>
+              <TouchableHighlight
+                onPress={googleLogin}
+                style={styles.socialContainer}>
+                <Image
+                  style={styles.socialImage}
+                  source={require(`../assets/google.png`)}
+                />
+              </TouchableHighlight>
+              <TouchableHighlight
+                onPress={kakaoLogin}
+                style={styles.socialContainer}>
+                <Image
+                  style={styles.socialImage}
+                  source={require(`../assets/kakao.png`)}
+                />
+              </TouchableHighlight>
+            </View>
+          </View>
+        </>
+      ) : (
+        <View>
+          <Text>로그인 되어있습니다.{user.account}</Text>
+        </View>
+      )}
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   login: {
@@ -49,6 +82,18 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'rgba(0, 0, 0, 0.25)',
+  },
+  social: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  socialImage: {
+    width: Dimensions.get('window').width * 0.5,
+    height: (Dimensions.get('window').width * 0.5 * 91) / 493,
+  },
+  socialContainer: {
+    marginVertical: 5,
   },
 });
 

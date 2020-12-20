@@ -5,10 +5,10 @@ import Header from '../components/Header';
 import Information from '../components/Information';
 import Login from '../components/Login';
 
-const MyPageScreens = () => {
+const MyPageScreens = ({ openDrawer }) => {
   return (
     <>
-      <Header title={'마이페이지'} />
+      <Header title={'마이페이지'} openDrawer={openDrawer} />
       <View style={styles.container}>
         <Login />
         <Information />

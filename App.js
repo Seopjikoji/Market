@@ -23,10 +23,11 @@ import Temp from './screens/Temp';
 enableScreens();
 const saga = createSagaMiddleware();
 const middlewares = [saga];
-const enhancer =
-  process.env.NODE_ENV === 'production'
-    ? compose(applyMiddleware(...middlewares))
-    : composeWithDevTools(applyMiddleware(...middlewares));
+// const enhancer =
+//   process.env.NODE_ENV === 'production'
+//     ? compose(applyMiddleware(...middlewares))
+//     : composeWithDevTools(applyMiddleware(...middlewares));
+const enhancer = composeWithDevTools(applyMiddleware(saga));
 const store = createStore(rootReducer, enhancer);
 saga.run(rootSaga);
 

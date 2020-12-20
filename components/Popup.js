@@ -170,7 +170,6 @@ export function PurchasePopup({ setVisible, options }) {
               <PurchaseOptions
                 name={itemData.index + 1}
                 options={itemData.item}
-                key={itemData.index.toString()}
                 setChoicedOptions={setChoicedOptions}
                 choicedOptions={choicedOptions}
               />

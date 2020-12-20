@@ -61,12 +61,14 @@ function Header({ Component, openDrawer, title }) {
   return (
     <>
       <View style={styles.container}>
-        <TouchableNativeFeedback onPress={openDrawer}>
-          <View style={styles.icon}>
-            <IconIo name={'menu-outline'} size={20} color="black" />
-          </View>
-        </TouchableNativeFeedback>
-        {title ? <Text>{title}</Text> : <></>}
+        <View style={styles.menuTitle}>
+          <TouchableNativeFeedback onPress={openDrawer}>
+            <View style={styles.icon}>
+              <IconIo name={'menu-outline'} size={20} color="black" />
+            </View>
+          </TouchableNativeFeedback>
+          {title ? <Text>{title}</Text> : <></>}
+        </View>
         {Component ? <Component /> : <></>}
         <View style={{ flexDirection: 'row' }}>
           <TouchableNativeFeedback onPress={() => console.log('bell')}>
@@ -99,6 +101,11 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     marginHorizontal: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  menuTitle: {
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },

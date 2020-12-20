@@ -19,7 +19,7 @@ function FavoriteScreenStack() {
       <Stack.Screen
         name="ProductInfo"
         component={ProductInfo}
-        options={{ headerShown: true }}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
